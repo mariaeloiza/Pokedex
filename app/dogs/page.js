@@ -8,46 +8,39 @@ function Dogs() {
     const [ dogs, alteraDogs ] = useState([])
 
     async function buscaTodosDogs(){
-        const response = await axios.get("https://dog.ceo/api/breed/hound/images")
+        const response = await axios.get("https://dog.ceo/api/breeds/image/random/30")
         console.log(response)
         alteraDogs(response.data.message)
     }
-    
-    useEffect( ()=> {
+
+    useEffect(()=> {
         buscaTodosDogs()
-    }, [] )
+    }, [])
 
     return ( 
-        <div>
+        <div className="px-20">
+            
+            <h1 className="p-10 mb-10 text-center text-green-700 bg-green-50 text-2xl" >Lista de Doguinhos</h1>
+            <p>Os melhores hotdogs estão aqui:</p>
 
-            <h1 className=" p-10 mb-10 text-center text-green-700 bg-indigo-50 text-2xl">Lista de Doguinhos</h1>
+            <hr/>
 
-            <div className="px-20">
-
-                <p>Os melhores hotdogs estão aqui</p>
-
-                <hr/>
-
-                {
-                    dogs.length >= 0 ?
-                        <ul>
-                            {
-                                dogs.map( (i, index) => 
-                                    <li className="flex items-center gap-4" > 
-                                        <img src={"https://dog.ceo/api/breed/hound/images/randow"+index} />
-                                    </li>
-                                )
-                            }
-                        </ul>
-                    :
-                        <p>Carregando...</p>
-
-                }
-
-            </div>
+            {
+                dogs.length > 0 ?
+                    <div className="flex gap-5 flex-wrap m-5" >
+                        {
+                            dogs.map( i => 
+                                <img src={i} width={150} />
+                            )
+                        }
+                    </div>
+                :
+                    <p>Carregando...</p>
+            }
+            
 
         </div>
-    );
+    )
 }
 
 export default Dogs;
