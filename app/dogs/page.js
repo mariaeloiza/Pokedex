@@ -13,8 +13,15 @@ function Dogs() {
         alteraDogs(response.data.message)
     }
 
+    async function buscaDogs(raca){
+        const response = await axios.get(`https://dog.ceo/api/breeds/image/random/30?breed=${raca}`)
+        console.log(response)
+        alteraDogs(response.data.message)
+    }
+
     useEffect(()=> {
         buscaTodosDogs()
+        buscaDogs()
     }, [])
 
     return ( 
@@ -25,8 +32,14 @@ function Dogs() {
 
             <hr/>
 
+            <button onClick={(e)=> buscaTodosDogs()} className="p-3 m-3 bg-blue-300 text-indigo-50 mb-10 rounded-xl" >Ver todos</button>
+            <button onClick={(e)=> buscaDogs("pitbull")} className="p-3 m-3 bg-blue-300 text-indigo-50 mb-10 rounded-xl" >Pit bull</button>
+            <button onClick={(e)=> buscaDogs("labrador")} className="p-3 m-3 bg-blue-300 text-indigo-50 mb-10 rounded-xl" >Labrador</button>
+            <button onClick={(e)=> buscaDogs("beagle")} className="p-3 m-3 bg-blue-300 text-indigo-50 mb-10 rounded-xl" >Beagle</button>
+
             {
                 dogs.length > 0 ?
+                
                     <div className="flex gap-5 flex-wrap m-5" >
                         {
                             dogs.map( i => 
