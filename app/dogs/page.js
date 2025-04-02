@@ -9,7 +9,7 @@ function Dogs() {
     const [ racas, alteraRacas ] = useState([])
 
     async function buscaTodosDogs(){
-        const response = await axios.get("https://dog.ceo/api/breeds/image/random/30")
+        const response = await axios.get("https://dog.ceo/api/breeds/image/random/50")
         alteraDogs( response.data.message )
     }   
 
@@ -36,11 +36,11 @@ function Dogs() {
 
             <hr/>
 
-            <div className="flex" >
+            <div>
 
                 <div>
                     
-                    <button onClick={()=> buscaTodosDogs() } className="bg-green-200 text-green-900 m-3 p-3 rounded-xl">Mostrar tudo</button>
+                    <button onClick={()=> buscaTodosDogs() } className="bg-green-200 text-green-900 m-3 p-3 rounded-xl">Ver tudo</button>
                     
                     {
                         racas.length > 0 &&
