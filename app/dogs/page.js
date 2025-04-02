@@ -6,25 +6,29 @@ import { useEffect, useState } from "react";
 function Dogs() {
 
     const [ dogs, alteraDogs ] = useState([])
+    const [ racas, alteraRacas ] = useState([])
 
     async function buscaTodosDogs(){
         const response = await axios.get("https://dog.ceo/api/breeds/image/random/30")
-        console.log(response)
-        alteraDogs(response.data.message)
+        alteraDogs( response.data.message )
+    }   
+
+    async function buscaPorRaca( raca ){
+        const response = await axios.get("https://dog.ceo/api/breed/"+raca+"/images")
+        alteraDogs( response.data.message )
     }
 
-    async function buscaDogs(raca){
-        const response = await axios.get(`https://dog.ceo/api/breeds/image/random/30?breed=${raca}`)
-        console.log(response)
-        alteraDogs(response.data.message)
+    async function buscaTodasRacas(){
+        const response = await axios.get("https://dog.ceo/api/breeds/list/all")
+        alteraRacas( Object.keys( response.data.message ) )
     }
 
     useEffect(()=> {
         buscaTodosDogs()
-        buscaDogs()
+        buscaTodasRacas()
     }, [])
 
-    return ( 
+    return (
         <div className="px-20">
             
             <h1 className="p-10 mb-10 text-center text-green-700 bg-green-50 text-2xl" >Lista de Doguinhos</h1>
@@ -32,24 +36,36 @@ function Dogs() {
 
             <hr/>
 
-            <button onClick={(e)=> buscaTodosDogs()} className="p-3 m-3 bg-blue-300 text-indigo-50 mb-10 rounded-xl" >Ver todos</button>
-            <button onClick={(e)=> buscaDogs("pitbull")} className="p-3 m-3 bg-blue-300 text-indigo-50 mb-10 rounded-xl" >Pit bull</button>
-            <button onClick={(e)=> buscaDogs("labrador")} className="p-3 m-3 bg-blue-300 text-indigo-50 mb-10 rounded-xl" >Labrador</button>
-            <button onClick={(e)=> buscaDogs("beagle")} className="p-3 m-3 bg-blue-300 text-indigo-50 mb-10 rounded-xl" >Beagle</button>
+            <div className="flex" >
 
-            {
-                dogs.length > 0 ?
-                
-                    <div className="flex gap-5 flex-wrap m-5" >
-                        {
-                            dogs.map( i => 
-                                <img src={i} width={150} />
+                <div>
+                    
+                    <button onClick={()=> buscaTodosDogs() } className="bg-green-200 text-green-900 m-3 p-3 rounded-xl">Mostrar tudo</button>
+                    
+                    {
+                        racas.length > 0 &&
+                            racas.map( i => 
+                                <button onClick={()=> buscaPorRaca(i) } className="bg-green-200 text-green-700 m-1 p-3 rounded-xl"> {i} </button>
                             )
-                        }
-                    </div>
-                :
-                    <p>Carregando...</p>
-            }
+                    }
+                    
+                </div>
+        
+                {
+                    dogs.length > 0 ?
+                        <div className="flex gap-5 flex-wrap" >
+                            {
+                                dogs.map( i => 
+                                    <img src={i} width={100} />
+                                )
+                            }
+                        </div>
+                    :
+                        <p>Carregando...</p>
+                }
+
+            </div>
+
             
 
         </div>
