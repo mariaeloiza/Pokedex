@@ -28,7 +28,7 @@ function Produtos() {
 
             {
                 produtos.map(i => <p className="border p-3 m-3">
-                    <strong>{i.nome}</strong> - R${i.preco.toFixed(2)} <br/> Quantidade: {i.quantidade},  Registro:{i.registro}
+                    <strong>{i.nome}</strong> - R${i.preco.toFixed(2)} <br/> Quantidade: {i.quantidade},  Registro: {i.registro}
                 </p>)
 
             }
