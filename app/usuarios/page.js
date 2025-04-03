@@ -1,13 +1,17 @@
 'use client'
 
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 function Usuarios() {
 
+    const [ usuarios, alteraUsuarios ] = useState([])
+
     async function buscaUsuarios(){
-        const response = await axios.get("http://localhost:3000/api/usuarios")
+        const response = await axios.get("http://localhost:3001/api/usuarios")
         console.log(response)
+        alteraUsuarios(response.data)
+        
     }
 
     useEffect(()=> {
@@ -22,7 +26,10 @@ function Usuarios() {
 
             <hr/>
 
+            {
+                usuarios.map(i => <p>{i.nome}, {i.idade}</p>)
 
+            }
 
         </div>
     )
