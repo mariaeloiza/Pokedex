@@ -1,10 +1,18 @@
+'use client'
+
 import axios from "axios";
+import { useEffect } from "react";
 
 function Usuarios() {
 
     async function buscaUsuarios(){
-        const response = await axios.get("")
+        const response = await axios.get("http://localhost:3000/api/usuarios")
+        console.log(response)
     }
+
+    useEffect(()=> {
+        buscaUsuarios()
+    }, [])
 
     return (  
         <div>
