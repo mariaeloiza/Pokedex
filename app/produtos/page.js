@@ -8,7 +8,7 @@ function Produtos() {
     const [ produtos, alteraProdutos ] = useState([])
 
     async function buscaProdutos(){
-        const response = await axios.get("http://localhost:3001/api/produtos")
+        const response = await axios.get("http://localhost:3000/api/produtos")
         console.log(response)
         alteraProdutos(response.data)
         

@@ -8,7 +8,7 @@ function Usuarios() {
     const [ usuarios, alteraUsuarios ] = useState([])
 
     async function buscaUsuarios(){
-        const response = await axios.get("http://localhost:3001/api/usuarios")
+        const response = await axios.get("http://localhost:3000/api/usuarios")
         console.log(response)
         alteraUsuarios(response.data)
         
